@@ -1,8 +1,19 @@
 import { setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
+// add a product and it's details to the cart
 function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+
+  let cart = localStorage.getItem("so-cart");
+
+  try {
+    cart = cart ? JSON.parse(cart) : [];
+  } catch (e) {
+    cart = [];
+  }
+
+  cart.push(product);
+  localStorage.setItem("so-cart", JSON.stringify(cart));
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
@@ -11,6 +22,4 @@ async function addToCartHandler(e) {
 }
 
 // add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+document.getElementById("addToCart").addEventListener("click", addToCartHandler);
