@@ -13,7 +13,7 @@ function addProductToCart(product) {
   }
 
   cart.push(product);
-  localStorage.setItem("so-cart", JSON.stringify(cart));
+  setLocalStorage("so-cart", cart);
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
