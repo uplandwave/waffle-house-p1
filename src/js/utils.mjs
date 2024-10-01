@@ -21,3 +21,13 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+// if the value is not an array, place it in one. If it is null, return a new array.
+export function placeInArrayAsNeeded(value) {
+  if (value === null) {
+    value = []
+  } else if (value?.constructor !== Array) {
+    value = [value]
+  }
+  return value  
+}
