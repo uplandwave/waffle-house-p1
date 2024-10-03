@@ -7,7 +7,7 @@ function renderCartContents() {
   if (!cartItems || cartItems.length === 0) {
     return;
   }
-  
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
