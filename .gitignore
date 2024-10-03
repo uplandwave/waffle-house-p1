@@ -5,3 +5,6 @@ web_modules
 node_modules
 dist
 .env
+
+# I wanted to keep some of my classwork here so i dont have two repos
+/classwork-upland

@@ -1,20 +1,31 @@
-# sleepoutside
+# Sleep Out Side
+
+Welcome to our team repo! Our team here at Waffle House is happy to show you what we have created.
 
 ## Description
 
-Use this as a starting point to complete the WDD 330 team activity: the SleepOutside web application. It scaffolds out a simple web app with Vite support to bundle up our assets.
+SleepOutside is a simple web app with Vite support to bundle up our assets. 
 
-## Prerequisites
-
-- You must have Node installed. visit https://byui-cit.github.io/advcss/lesson01/l01-software.html and skip to the Node section for instructions
+## Our Team
+- [Matai Cross] (https://github.com/GMCRM)
+- [Mitchell Bower] (https://github.com/mbower00)
+- [Star Balls] (https://github.com/starb520)
+- [Luke Briggs] (https://github.com/uplandwave)
 
 ## Setup
 
-- `npm install`
-- `npm run start` starts up a local server and updates on any JS or CSS/SCSS changes.
+We are using pnpm because it works better for us. If you like npm feel free to change the `pnpm` in each command to `npm`.
+
+- `pnpm install`
+- `pnpm run start` starts up a local server and updates on any JS or CSS/SCSS changes.
+
+## Public Site (If you don't want to just take our code)
+
+Link: [SleepOutside] (https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
 
 ## Other commands
 
-- `npm run build` to build final files when you are ready to turn in.
-- `npm run lint` to run ESLint against your code to find errors.
-- `npm run format` to run Prettier to automatically format your code.
+- `pnpm run build` to build final files when you are ready to turn in.
+- `pnpm run lint` to run ESLint against your code to find errors.
+- `pnpm run format` to run Prettier to automatically format your code.
