@@ -243,3 +243,48 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/* alert css */
+
+.alert-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.alert-modal {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #a4b8c4
+}
+
+.alert-message {
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 18px;
+  
+}
