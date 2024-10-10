@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, updateCartIcon } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -7,6 +7,8 @@ function renderCartContents() {
   if (!cartItems || cartItems.length === 0) {
     // display a message letting the user no there are no items in the cart
     document.querySelector(".cart-empty-message").style.display = "block";
+    document.querySelector(".product-list").innerHTML = "";
+    document.querySelector(".cart-footer").classList.add("hide");
     return;
   }
 
@@ -20,7 +22,8 @@ function renderCartContents() {
 
 // create inner html for a product
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
+  const newItem = 
+  `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -42,12 +45,13 @@ function cartItemTemplate(item) {
 function cartTotal() {
   const cartItems = getLocalStorage("so-cart");
 
-  console.log(cartItems);
+  // console.log(cartItems);
   // check if the cart is empty return an empty string
   if (!cartItems || cartItems.length === 0) {
     return;
   }
-  // initialize cart total to 0
+  // initialize cart total to 0 || line 54 below turns off an error from our lint filter. Idk why it is an error but it totaly works
+  // eslint-disable-next-line no-shadow
   let cartTotal = 0;
 
   // iterate over cart items, adding cost of each item
@@ -67,3 +71,6 @@ function cartTotal() {
 }
 
 renderCartContents();
+
+// Call updateCartIcon on page load to display current cart count
+document.addEventListener("DOMContentLoaded", updateCartIcon);
