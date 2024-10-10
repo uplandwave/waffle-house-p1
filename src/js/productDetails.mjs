@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, updateCartIcon } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 let productData = {}
@@ -31,6 +31,10 @@ function productDetailsTemplate(product) {
   `
 }
 
+// this line is to clear local storage
+
+// localStorage.removeItem("so-cart");
+
 // add a product and its details to the cart
 function addProductToCart(product) {
     let cart = getLocalStorage("so-cart") || [];
@@ -43,20 +47,6 @@ function addProductToCart(product) {
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
   addProductToCart(product);
-}
-
-// New function to update cart icon
-function updateCartIcon() {
-  const cartItems = getLocalStorage("so-cart") || [];
-  const cartItemCount = document.querySelector(".cart-item-count");
-  const cartIcon = document.querySelector(".cart");
-
-  cartItemCount.textContent = cartItems.length;
-
-  // Trigger animation
-  cartIcon.classList.remove("cart-animation");
-  void cartIcon.offsetWidth; // Trigger reflow
-  cartIcon.classList.add("cart-animation");
 }
 
 // Call updateCartIcon on page load to display current cart count

@@ -28,3 +28,29 @@ export function getParam(param) {
   const paramValue = urlParams.get(param)
   return paramValue
 }
+
+export function updateCartIcon() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItemCount = document.querySelector(".cart-item-count");
+  const cartIcon = document.querySelector(".cart");
+
+  // If the cart is empty, hide the cart item count
+  if (cartItems.length === 0) {
+    cartItemCount.style.display = "none";
+  } else {
+    cartItemCount.style.display = "block";
+    cartItemCount.textContent = cartItems.length;
+    
+  // animation trigger for our cart
+  cartIcon.classList.remove("cart-animation");
+    void cartIcon.offsetWidth;
+    cartIcon.classList.add("cart-animation");
+  }
+}
+
+// this line is to clear the cart in local storage
+function clearCart() {
+  localStorage.removeItem("so-cart");
+}
+
+// clearCart();
