@@ -1,7 +1,7 @@
 import modemData from "./alerts.json";
 
 // this line is to clear local storage
-localStorage.removeItem("hasVisited");
+// localStorage.removeItem("hasVisited");
 
 function isFirstVisit() {
     return !localStorage.getItem("hasVisited");
