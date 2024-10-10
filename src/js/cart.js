@@ -32,3 +32,39 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+
+
+
+
+
+
+// Cart icon update
+
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+
+function updateCartIcon() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItemCount = document.querySelector(".cart-item-count");
+  const cartIcon = document.querySelector(".cart");
+
+  cartItemCount.textContent = cartItems.length;
+
+  // Trigger animation
+  cartIcon.classList.remove("cart-animation");
+  void cartIcon.offsetWidth; // Trigger reflow
+  cartIcon.classList.add("cart-animation");
+}
+
+// Function to add item to cart
+function addToCart(item) {
+  const cart = getLocalStorage("so-cart") || [];
+  cart.push(item);
+  setLocalStorage("so-cart", cart);
+  updateCartIcon();
+}
+
+// Example usage:
+// addToCart(productItem);
+
+// Call updateCartIcon on page load to display current cart count
+document.addEventListener("DOMContentLoaded", updateCartIcon);

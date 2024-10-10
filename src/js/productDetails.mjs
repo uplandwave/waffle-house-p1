@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 let productData = {}
@@ -31,21 +31,13 @@ function productDetailsTemplate(product) {
   `
 }
 
-
-// add a product and it's details to the cart
+// add a product and its details to the cart
 function addProductToCart(product) {
-
-    let cart = localStorage.getItem("so-cart");
-  
-    try {
-      cart = cart ? JSON.parse(cart) : [];
-    } catch (e) {
-      cart = [];
-    }
-  
+    let cart = getLocalStorage("so-cart") || [];
     cart.push(product);
     setLocalStorage("so-cart", cart);
-  }
+    updateCartIcon();
+}
 
 // add to cart button event handler
 async function addToCartHandler(e) {
@@ -53,3 +45,19 @@ async function addToCartHandler(e) {
   addProductToCart(product);
 }
 
+// New function to update cart icon
+function updateCartIcon() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartItemCount = document.querySelector(".cart-item-count");
+  const cartIcon = document.querySelector(".cart");
+
+  cartItemCount.textContent = cartItems.length;
+
+  // Trigger animation
+  cartIcon.classList.remove("cart-animation");
+  void cartIcon.offsetWidth; // Trigger reflow
+  cartIcon.classList.add("cart-animation");
+}
+
+// Call updateCartIcon on page load to display current cart count
+document.addEventListener("DOMContentLoaded", updateCartIcon);
