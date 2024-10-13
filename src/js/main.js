@@ -2,6 +2,9 @@
 import ProductList from "./components/ProductList.svelte";
 import { updateCartIcon } from "./utils.mjs";
 
+/**
+ * Create an instance of the ProductList svelte component, inserts the tent products into the home page for user to click on a product
+ */
 new ProductList({
     target: document.querySelector(".products"),
     props: { category: "tents" },

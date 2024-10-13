@@ -6,6 +6,9 @@ function convertToJson(res) {
   }
 }
 
+/** 
+ * Get the data for products from the category.json file
+ */
 export function getData(category = "tents") {
   return fetch(`../json/${category}.json`)
     .then(convertToJson)
