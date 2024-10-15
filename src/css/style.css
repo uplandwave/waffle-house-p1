@@ -161,6 +161,15 @@ button {
         }
       }
 
+#delete-cart-item {
+  border-radius: 50px;
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+  font-size: 15px;
+  grid-column: 1 / span 3; /* Span across all three columns */
+  justify-self: center; /* Horizontally center the button */
+}
+
 /* Mission section */
 .mission {
   padding: 0 0.5em;
