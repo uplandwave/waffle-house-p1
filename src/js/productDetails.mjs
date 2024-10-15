@@ -11,6 +11,22 @@ export default async function productDetails(productId, selector) {
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
 }
 
+function discountAndPriceTemplate(product){
+  if (product.FinalPrice === product.SuggestedRetailPrice) {
+    // simply give the price, if there is no discount
+    return `$${product.FinalPrice}`
+  } else {
+    const discountAmount = Math.round((1 - (product.FinalPrice / product.SuggestedRetailPrice)) * 100)
+    return `
+      <span class="discount-container">
+        <span class="discount-prev-price">$${product.SuggestedRetailPrice}</span>
+        $${product.FinalPrice}
+        <span class="discount-amount-subtracted"> ~ %${discountAmount} off </span>
+      </span>
+    `
+  }
+}
+
 function productDetailsTemplate(product) {
   return `
         <h3 id="productName">${product.Brand.Name}</h3>
@@ -19,7 +35,7 @@ function productDetailsTemplate(product) {
 
         <img class="divider" src="${product.Image}" alt="${product.Name}"/>
 
-        <p class="product-card__price" id="productFinalPrice">${product.FinalPrice}</p>
+        <p class="product-card__price" id="productFinalPrice">${discountAndPriceTemplate(product)}</p>
         
         <p class="product__color" id="productColorName">${product.Colors[0].ColorName}</p>
 
