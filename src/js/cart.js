@@ -1,8 +1,8 @@
 import { getLocalStorage, setLocalStorage, updateCartIcon } from "./utils.mjs";
 
 /**
- * get the cart items from local storage, find the index of the item with the item id, if it doesn't exist (it should be there because it was displayed for the user on the cart page) then set the index to -1, use the index and 
- * the splice method to remove just one item with the item id and the index it was found at from the cart, currently the user can add as many items to the cart as he/she wants, but they appear as separate items instead of 
+ * get the cart items from local storage, find the index of the item with the item id, if it doesn't exist (it should be there because it was displayed for the user on the cart page) then set the index to -1, use the index and
+ * the splice method to remove just one item with the item id and the index it was found at from the cart, currently the user can add as many items to the cart as he/she wants, but they appear as separate items instead of
  * updating a quantity for that specific item
  */
 function removeFromCart(itemId) {
@@ -56,7 +56,7 @@ function renderCartContents() {
   cartTotal();
 }
 
-/**  
+/**
  * Create inner html for a product
  * */
 function cartItemTemplate(item) {
@@ -80,7 +80,7 @@ function cartItemTemplate(item) {
 
 /**
  * Iterate through cart items, add each item's FinalPrice to create cart total
- * */ 
+ * */
 function cartTotal() {
   const cartItems = getLocalStorage("so-cart");
   // if the cart is empty return immediately

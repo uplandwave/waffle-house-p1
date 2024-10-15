@@ -1,13 +1,13 @@
 [
-    {
-        "message": "Welcome to our store! Enjoy a special discount on your first purchase.",
-        "background": "#f0a868",
-        "color": "#ffffff"
-    },
-    {
-        "message": "Free shipping on orders over $50",
-        "background": "#a4b8c4",
-        "color": "#ffffff",
-        "fontSize": "22px"
-    }
+  {
+    "message": "Welcome to our store! Enjoy a special discount on your first purchase.",
+    "background": "#f0a868",
+    "color": "#ffffff"
+  },
+  {
+    "message": "Free shipping on orders over $50",
+    "background": "#a4b8c4",
+    "color": "#ffffff",
+    "fontSize": "22px"
+  }
 ]
