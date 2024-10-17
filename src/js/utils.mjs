@@ -1,3 +1,6 @@
+import MainHeader from "./components/MainHeader.svelte"
+import MainFooter from "./components/MainFooter.svelte"
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -53,4 +56,18 @@ function clearCart() {
   localStorage.removeItem("so-cart");
 }
 
+export function renderHeaderFooter(){
+  new MainHeader({
+    target: document.querySelector("#header")
+  })
+
+  new MainFooter({
+    target: document.querySelector("#footer")
+  })
+}
+
+
+
+
 // clearCart();
+
