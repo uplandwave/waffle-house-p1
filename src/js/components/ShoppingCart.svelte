@@ -15,6 +15,8 @@
       cartList.splice(index, 1);
     }
 
+    cartList = [...cartList];
+    
     // update local storage
     setLocalStorage("so-cart", cartList);
 
