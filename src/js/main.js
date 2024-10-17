@@ -1,6 +1,8 @@
 // main.js
 import ProductList from "./components/ProductList.svelte";
-import { updateCartIcon } from "./utils.mjs";
+import { updateCartIcon, renderHeaderFooter } from "./utils.mjs";
+
+renderHeaderFooter();
 
 /**
  * Create an instance of the ProductList svelte component, inserts the tent products into the home page for user to click on a product
