@@ -5,23 +5,53 @@ import { getLocalStorage, setLocalStorage, updateCartIcon } from "./utils.mjs";
  * the splice method to remove just one item with the item id and the index it was found at from the cart, currently the user can add as many items to the cart as he/she wants, but they appear as separate items instead of
  * updating a quantity for that specific item
  */
+
+// This function checks if the item already exists in the cart
+// if it DOMParser, it increments the quantity of the item.
+// If it does not exist, it adds the item to the cart with quantity 1.
+function addToCart(product){
+  let cart = getLocalStorage("so-cart") || [];
+  const existingItem = cart.find(item => item.Id === product.Id);
+
+  if (existingItem) {
+    existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+  } else {
+    product.Quantity = 1;
+    cart.push(product);
+  }
+  setLocalStorage("so-cart", cart);
+  updateCartIcon();
+}
+// This function now uses the filter method to remove the item from the cart.
+// It then updates the cart icon and re-renders the cart contents.
 function removeFromCart(itemId) {
   let cartItems = getLocalStorage("so-cart");
-
-  // find the index of the first item with the specified id
-  const index = cartItems.findIndex((item) => item.Id === itemId);
-
-  // if the item is found, remove only that instance
-  if (index !== -1) {
-    cartItems.splice(index, 1);
-  }
-
+  cartItems = cartItems.filter(item => item.Id !== itemId);
+  setLocalStorage("so-cart", cartItems);
+  renderCartContents();
   // update local storage
   setLocalStorage("so-cart", cartItems);
 
   // re-render the cart items
   renderCartContents();
 }
+
+//Updates the quantity of an item in the cart
+//if the new quantity is 0 or less, it removes the item from the cart.
+//Otherwise, it updates the quantity and re-renders the cart contents.
+function updateQuantity(itemId, newQuantity){
+  let cartItems = getLocalStorage("so-cart");
+  const item = cartItems.find(item => item.Id === itemId);
+  if(item <= 0){
+    removeFromCart(itemId);
+  }else{
+    setLocalStorage("so-cart", cartItems);
+    renderCartContents();
+  }
+}
+
+
+
 
 /** There are a lot of things that need to be done to render the contents of the cart, first get the cart items from local storage, if the cart is empty then display a cart empty message for the user, make sure the html for the products in the cart is set to empty, also make sure not to display a total since there is nothing in the cart then exit the function, if items are in the cart iterate through them using the html in the cartItemTemplate to display each item for the user, but make sure to also add a delete button for each cart item so the item can be deleted, if the button is clicked remove the item from the cart and then update the backpack cart icon, if the button is not clicked then the function executes finding a cart total and displaying it */
 function renderCartContents() {
@@ -59,8 +89,10 @@ function renderCartContents() {
 /**
  * Create inner html for a product
  * */
+//This function incudes an input field for the quantity.
+//It also multiplies the item price by the quantity to show the total price for that item.
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
+  return `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -71,16 +103,18 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-  <button id="delete-cart-item" data-id="${item.Id}">Delete Item</button>
+  <p class="cart-card__quantity">
+  <input type="number" class="quantity-output" data-id=${item.Id}" value="${item.Quantity}" min="1">
+  </p>
+  <p class="cart-card__price">$${(item.FinalPrice * item.Quantity).toFixed(2)}</p>
+  <button class="delete-cart-item" data-id="${item.Id}">Delete Item</button>
 </li>`;
-  return newItem;
 }
 
 /**
  * Iterate through cart items, add each item's FinalPrice to create cart total
  * */
+//This function now takes into account the quantity of each item when calculating the total price.
 function cartTotal() {
   const cartItems = getLocalStorage("so-cart");
   // if the cart is empty return immediately
@@ -90,16 +124,9 @@ function cartTotal() {
     document.querySelector(".cart-footer").innerHTML = "";
     return;
   }
-  // initialize cart total to 0 || line 54 below turns off an error from our lint filter. Idk why it is an error but it totaly works
-  // eslint-disable-next-line no-shadow
-  let cartTotal = 0;
-  // iterate over cart items, adding cost of each item
-  cartItems.forEach((item) => {
-    cartTotal += item.FinalPrice;
-  });
-  let cartTotalHtml = `<p class="cart-total">Total: $${cartTotal.toFixed(
-    2
-  )}</p>`;
+  // calculate the total cost of the items in the cart
+  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice * item.Quantity, 0);
+  const cartTotalHtml = `<p class="cart-total:">Total: $${total.toFixed(2)}</p>`;
   document.querySelector(".cart-footer").innerHTML = cartTotalHtml;
   // Ensure the cart footer is visible
   document.querySelector(".cart-footer").classList.remove("hide");
@@ -109,3 +136,5 @@ renderCartContents();
 
 // Call updateCartIcon on page load to display current cart count
 document.addEventListener("DOMContentLoaded", updateCartIcon);
+
+export{addToCart};

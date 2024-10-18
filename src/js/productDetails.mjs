@@ -1,6 +1,6 @@
-import { setLocalStorage, getLocalStorage, updateCartIcon } from "./utils.mjs";
+import { updateCartIcon } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
-
+import { addToCart } from "./cart";
 let productData = {}
 
 export default async function productDetails(productId, selector) {
@@ -51,18 +51,12 @@ function productDetailsTemplate(product) {
 
 // localStorage.removeItem("so-cart");
 
-// add a product and its details to the cart
-function addProductToCart(product) {
-    let cart = getLocalStorage("so-cart") || [];
-    cart.push(product);
-    setLocalStorage("so-cart", cart);
-    updateCartIcon();
-}
+
 
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  addToCart(product);
 }
 
 // Call updateCartIcon on page load to display current cart count
