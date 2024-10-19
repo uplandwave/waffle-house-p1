@@ -1,6 +1,6 @@
 // main.js
 import ProductList from "./components/ProductList.svelte";
-import NewsletterSignUp from "./components/NewsletterSignUp.svelte";
+import NewsletterSignUp from "./components/NewsletterSignUp.svelte";;
 import { updateCartIcon, renderHeaderFooter } from "./utils.mjs";
 
 renderHeaderFooter();
