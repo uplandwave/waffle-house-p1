@@ -1,5 +1,7 @@
-import { setLocalStorage, getLocalStorage, updateCartIcon } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, getCartCount } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
+import { cartCount } from "./stores.mjs";
+import ShoppingCart from "./components/ShoppingCart.svelte";
 
 let productData = {}
 
@@ -47,23 +49,21 @@ function productDetailsTemplate(product) {
   `
 }
 
-// this line is to clear local storage
-
-// localStorage.removeItem("so-cart");
-
 // add a product and its details to the cart
 function addProductToCart(product) {
-    let cart = getLocalStorage("so-cart") || [];
+    let cart = getLocalStorage("so-cart");
+    if (!cart) {
+      cart = [];
+    }
     cart.push(product);
     setLocalStorage("so-cart", cart);
-    updateCartIcon();
+    cartCount.set(cart.length);
 }
 
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
   addProductToCart(product);
+  const cartIcon = document.querySelector(".cart-counter");
+  cartIcon.classList.add("animate");
 }
-
-// Call updateCartIcon on page load to display current cart count
-document.addEventListener("DOMContentLoaded", updateCartIcon);
