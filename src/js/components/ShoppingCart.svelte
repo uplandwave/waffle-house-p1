@@ -3,7 +3,8 @@
   import CartItem from "./CartItem.svelte";
   import { cartCount } from "../stores.mjs"; // this is how we are linking it to our active cart data
 
-  let cartList = getLocalStorage("so-cart");
+  let cartList = getLocalStorage("so-cart") || [];
+  console.log(cartList);
 
   function removeFromCart(e) {
     const itemId = e.detail.Id;
@@ -18,8 +19,12 @@
     setLocalStorage("so-cart", cartList);
     // updates the cart icon when you remove an item
     cartCount.set(cartList.length);
-  };
+  }
 </script>
+
+{#if cartList.length === 0}
+  <h1 class="cart-empty-message">Your SleepOutside Cart is Empty</h1>
+{/if}
 
 <ul>
   {#each cartList as item}
