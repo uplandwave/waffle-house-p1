@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { setLocalStorage, getLocalStorage, getCartCount } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 import { cartCount } from "./stores.mjs";
