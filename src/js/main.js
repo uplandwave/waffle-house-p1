@@ -1,7 +1,6 @@
-// main.js
 import ProductList from "./components/ProductList.svelte";
 import NewsletterSignUp from "./components/NewsletterSignUp.svelte";
-import { updateCartIcon, renderHeaderFooter } from "./utils.mjs";
+import { renderHeaderFooter } from "./utils.mjs";
 import { isFirstVisit, setFirstVisit } from "./alerts.js";
 
 renderHeaderFooter();
@@ -47,6 +46,7 @@ new ProductList({
   target: document.querySelector(".products"),
   props: { category: "tents" },
 });
+
 
 new NewsletterSignUp({
   target: document.getElementById("newsletter-sign-up"),

@@ -1,10 +1,13 @@
 <script>
   export let item = {};
   import { createEventDispatcher } from "svelte";
+
   const emit = createEventDispatcher();
+
   function emitDelete() {
     emit("itemDeleted", { Id: item.Id });
   }
+
   let itemURL = `../product_pages/index.html?product=${item.Id}`;
 </script>
 

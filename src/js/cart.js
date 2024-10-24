@@ -1,10 +1,15 @@
-import {
-  getLocalStorage,
-  setLocalStorage,
-  updateCartIcon,
-  renderHeaderFooter,
-} from "./utils.mjs";
+// import { getLocalStorage, setLocalStorage, getCartCount } from "./utils.mjs";
+import { renderHeaderFooter, getCartCount } from "./utils.mjs";
 import ShoppingCart from "./components/ShoppingCart.svelte";
+
+renderHeaderFooter();
+
+new ShoppingCart({
+  target: document.querySelector(".product-list"),
+});
+
+// Call updateCartIcon on page load to display current cart count
+document.addEventListener("DOMContentLoaded", getCartCount);
 
 // /**
 //  * get the cart items from local storage, find the index of the item with the item id, if it doesn't exist (it should be there because it was displayed for the user on the cart page) then set the index to -1, use the index and
@@ -110,12 +115,3 @@ import ShoppingCart from "./components/ShoppingCart.svelte";
 //   // Ensure the cart footer is visible
 //   document.querySelector(".cart-footer").classList.remove("hide");
 // }
-
-// renderCartContents();
-renderHeaderFooter();
-new ShoppingCart({
-  target: document.querySelector(".product-list"),
-});
-
-// Call updateCartIcon on page load to display current cart count
-document.addEventListener("DOMContentLoaded", updateCartIcon);

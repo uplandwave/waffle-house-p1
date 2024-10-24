@@ -1,3 +1,6 @@
+<script>
+  import { cartCount } from "../stores.mjs";
+</script>
 
       <div class="logo">
         <!-- svelte-ignore a11y-img-redundant-alt -->
@@ -25,11 +28,28 @@
             <path
               d="M60.1 71.4v3.3h-5.2v-3.4c-1.7-0.3-3.3-0.7-4.6-1 -0.9 6.8-1.1 13.3-0.3 14.5 0.4 0.3 2.9 1.1 8 1.1h0c5 0 8.8-0.7 9.7-1.3 0.8-1.3 0.6-7.7-0.4-14.4C65.5 70.5 62.7 71.1 60.1 71.4z"
             />
-
-            <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
-            <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
           </svg>
-          <span class="cart-item-count"></span>
+          <!-- <sup class="cart-count">{$cartCount}</sup> -->
+          {#if $cartCount > 0}
+          <span class="cart-counter">{$cartCount}</span>
+        {/if}
         </a>
       </div>
+
+      <style>
+        /* Basic styling for cart icon and counter */
+        .cart-counter {
+          position: absolute;
+          top: 7px;
+          right: -8px;
+          background-color: #f0a868; /* Red background for the counter */
+          color: white;
+          font-size: 0.8rem;
+          padding: 4px 8px;
+          border-radius: 50%;
+        }
+      
+        /* Add animation for cart counter pop-in */
+ 
+      </style>
    
