@@ -35,7 +35,7 @@ function productDetailsTemplate(product) {
 
         <h2 class="divider">${product.NameWithoutBrand}</h2>
 
-        <img class="divider" src="${product.Image}" alt="${product.Name}"/>
+        <img class="divider" src="${product.Images.PrimaryExtraLarge}" alt="${product.Name}"/>
 
         <p class="product-card__price" id="productFinalPrice">${discountAndPriceTemplate(product)}</p>
         

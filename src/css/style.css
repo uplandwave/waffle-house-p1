@@ -168,6 +168,23 @@ button {
   margin: auto;
 }
 
+/* Home page producct links */
+.categories-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 150px;
+  margin-top: 50px;
+}
+.categories-grid a {
+  transform: scale(0.7);
+  transition: all 0.3s ease;
+  /* padding: 10px; */
+}
+.categories-grid a:hover {
+  transform: scale(1);
+  /* border: 2px solid #666; */
+}
+
 /* Product list styling */
 .products {
   padding: 0.5em;
@@ -285,10 +302,9 @@ footer {
   display: none;
   background-color: var(--dark-grey);
   padding: 12px 0px 12px 20px;
-  text-align:center;
-  position: relative; 
+  text-align: center;
+  position: relative;
   margin: 10px 0;
-
 }
 
 #banner p {
