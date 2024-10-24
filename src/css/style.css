@@ -291,6 +291,38 @@ footer {
   border-radius: 10px;
 }
 
+#banner {
+  display: none;
+  background-color: var(--dark-grey);
+  padding: 12px 0px 12px 20px;
+  text-align:center;
+  position: relative; 
+  margin: 10px 0;
+
+}
+
+#banner p {
+  font-size: 26px;
+  color: #ffffff;
+  width: 100%;
+  margin: 0;
+}
+
+#close-banner {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#banner #close-banner:hover {
+  color: var(--light-grey);
+}
+
 /* Alert modal styling */
 .alert-modal-overlay {
   position: fixed;
@@ -332,50 +364,6 @@ footer {
   padding: 10px;
   margin: 10px 0;
   font-size: 18px;
-}
-
-
-.registration-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-  z-index: 100;
-}
-
-.registration-modal {
-  background-color: #88a01f;
-  /* padding: 20px; */
-  width: 90%;
-  max-width: 1000px;
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); */
-  position: relative;
-}
-
-.registration-modal .close-button {
-  position: absolute;
-  top: 3px;
-  right: 6px;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #ffffff;
-}
-
-.registration-modal .close-button:hover {
-  color: #a4b8c4;
-}
-.registration-alert-message {
-  text-align: center;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 24px;
-  color: #ffffff;
 }
 
 /* Responsive styles */
