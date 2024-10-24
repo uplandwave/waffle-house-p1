@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (closeBannerButton) {
     closeBannerButton.addEventListener("click", hideBanner);
   }
-
-  updateCartIcon();
 });
 
 /**
