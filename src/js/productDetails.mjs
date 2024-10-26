@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { setLocalStorage, getLocalStorage, getCartCount } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, getCartCount, renderBreadcrumbs, capitalize } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 import { cartCount } from "./stores.mjs";
-import ShoppingCart from "./components/ShoppingCart.svelte";
 
 let productData = {}
 
@@ -12,6 +11,11 @@ export default async function productDetails(productId, selector) {
   document.querySelector(".product-detail").innerHTML = template
   // add listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+  // add the breadcrumbs
+  renderBreadcrumbs([{
+    text: capitalize(productData.Category.replace("-", " ")),
+    href: `http://localhost:5173/product-list/index.html?category=${productData.Category}`
+  }])
 }
 
 function discountAndPriceTemplate(product){
