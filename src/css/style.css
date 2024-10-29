@@ -169,19 +169,24 @@ button {
 }
 
 /* Home page producct links */
+.categories-title{
+  padding-left: 25px;
+}
 .categories-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 150px;
-  margin-top: 50px;
+  /* gap: 50px; */
+  margin-top: 25px;
+  padding: 0 50px;
+  gap: 10px;
 }
 .categories-grid a {
-  transform: scale(0.7);
+  transform: scale(0.9);
   transition: all 0.3s ease;
   /* padding: 10px; */
 }
 .categories-grid a:hover {
-  transform: scale(1);
+  transform: scale(0.1);
   /* border: 2px solid #666; */
 }
 
@@ -387,5 +392,11 @@ footer {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+  }
+  .categories-grid a {
+    transform: scale(0.55);
+  }
+  .categories-grid a:hover {
+    transform: scale(0.7);
   }
 }
