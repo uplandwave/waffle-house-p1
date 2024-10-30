@@ -1,5 +1,6 @@
 import MainHeader from "./components/MainHeader.svelte"
 import MainFooter from "./components/MainFooter.svelte"
+import Breadcrumbs from "./components/Breadcrumbs.svelte"
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -51,4 +52,37 @@ export function renderHeaderFooter(){
   new MainFooter({
     target: document.querySelector("#footer")
   })
+}
+
+/*
+PARAM: crumbs
+  type: array of objects
+    object attributes:
+      - text     // what is shown
+      - href     // the href of the link. no link if false or left out.
+*/
+export function renderBreadcrumbs(crumbs){
+  new Breadcrumbs({
+    target: document.getElementById("breadcrumbs-container"),
+    props: {
+      crumbs
+    }
+  })
+}
+
+export function capitalize(stringValue) {
+  return stringValue
+    .split(" ")
+    .map((word) => {
+      return word
+        .split("")
+        .map((character, i) => {
+          if (i === 0) {
+            return character.toUpperCase()
+          }
+          return character
+        })
+        .join('')
+    })
+    .join(' ')
 }
