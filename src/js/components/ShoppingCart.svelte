@@ -4,7 +4,9 @@
   import { cartCount } from "../stores.mjs"; // this is how we are linking it to our active cart data
 
   let cartList = getLocalStorage("so-cart") || [];
-  console.log(cartList);
+  $: cartTotal = cartList.reduce((total, item) => {
+    return (total += item.FinalPrice * (item.qty || 1));
+  }, 0);
 
   function removeFromCart(e) {
     const itemId = e.detail.Id;
@@ -24,10 +26,14 @@
 
 {#if cartList.length === 0}
   <h1 class="cart-empty-message">Your SleepOutside Cart is Empty</h1>
+{:else}
+  <div>
+    <ul>
+      {#each cartList as item}
+        <CartItem {item} on:itemDeleted={removeFromCart}></CartItem>
+      {/each}
+    </ul>
+    <p class="cart-total">Total: ${cartTotal?.toFixed(2)}</p>
+    <a href="/checkout/index.html"><button id="checkOut">Check Out</button></a>
+  </div>
 {/if}
-
-<ul>
-  {#each cartList as item}
-    <CartItem {item} on:itemDeleted={removeFromCart}></CartItem>
-  {/each}
-</ul>

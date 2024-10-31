@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { setLocalStorage, getLocalStorage, getCartCount, renderBreadcrumbs, capitalize } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
+import { findProductById } from "./externalServices.mjs";
 import { cartCount } from "./stores.mjs";
 
 let productData = {}
@@ -60,6 +60,7 @@ function addProductToCart(product) {
     if (!cart) {
       cart = [];
     }
+    product.qty = 1
     cart.push(product);
     setLocalStorage("so-cart", cart);
     cartCount.set(cart.length);

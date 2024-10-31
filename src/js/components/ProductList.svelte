@@ -3,7 +3,7 @@
 <script>
   import ProductSummary from "./ProductSummary.svelte";
   import { renderBreadcrumbs, capitalize } from "../utils.mjs";
-  import { getData } from "../productData.mjs";
+  import { getData } from "../externalServices.mjs";
 
   // this is how we make a prop in svelte
   export let category;
