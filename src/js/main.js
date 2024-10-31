@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
 //   props: { category: "tents" },
 // });
 
-
 new NewsletterSignUp({
   target: document.getElementById("newsletter-sign-up"),
 });

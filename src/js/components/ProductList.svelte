@@ -2,6 +2,7 @@
 
 <script>
   import ProductSummary from "./ProductSummary.svelte";
+  import { renderBreadcrumbs, capitalize } from "../utils.mjs";
   import { getData } from "../productData.mjs";
 
   // this is how we make a prop in svelte
@@ -10,6 +11,17 @@
   // if you are looking at this thinking that's strange to just stop with a promise
   // you would be right.  This will make more sense in a bit...stay tuned.
   let promise = getData(category);
+
+  promise.then((data) => {
+    renderBreadcrumbs([
+      {
+        text: capitalize(category.replace("-", " ")),
+      },
+      {
+        text: `(${data.length} item${data.length === 1 ? "" : "s"})`,
+      },
+    ]);
+  });
 
   function showFourProducts(product) {
     return product.slice(0, 4);
