@@ -22,12 +22,15 @@
       gap: 1rem;
       padding: 1rem;
     }
+
+    .grid p {
+      justify-content: center;
+      grid-column: 1 / -1;
+    }
   
     .card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      border: 1px solid #3a3a3a;
       overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
   
@@ -44,37 +47,5 @@
     }
   </style>
 
-  <!-- src/lib/IdentificationList.svelte
-<script>
-    export let identifications = []; // Array of identifications passed down from App.svelte
-  </script>
-  
-  <div>
-    {#if identifications.length > 0}
-      <ul>
-        {#each identifications as identification}
-          <li>
-            <img src="{identification.image_url}" alt="{identification.name}" width="100" />
-            <p>{identification.name}</p>
-          </li>
-        {/each}
-      </ul>
-    {:else}
-      <p>No identifications found.</p>
-    {/if}
-  </div>
-  
-  <style>
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      margin-bottom: 1rem;
-    }
-    img {
-      border-radius: 4px;
-    }
-  </style> -->
   
   
