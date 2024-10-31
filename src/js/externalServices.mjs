@@ -1,4 +1,5 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
+// const baseURL = import.meta.env.VITE_SERVER_URL + "checkout";
 
 function convertToJson(res) {
   if (res.ok) {
@@ -16,7 +17,7 @@ function convertToJson(res) {
 //     .then(convertToJson)
 //     .then((data) => data);
 // }
-export async function getData(category) {
+export async function getProductsByCategory(category) {
   const response = await fetch(baseURL + `products/search/${category}`);
   const data = await convertToJson(response);
   console.log("DATA RESULT", data.Result); // for star for quick look trello card
@@ -31,4 +32,15 @@ export async function findProductById(id) {
 
   // const products = await getData();
   // return products.find((item) => item.Id === id);
+}
+
+export async function checkout(formPakage) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formPakage)
+  }
+  return await fetch(baseURL + "checkout/", options).then(convertToJson);
 }

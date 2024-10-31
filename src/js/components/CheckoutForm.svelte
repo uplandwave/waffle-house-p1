@@ -1,6 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { getLocalStorage } from "../utils.mjs";
+  import { getLocalStorage, formDataToJSON } from "../utils.mjs";
+
+  const baseURL = import.meta.env.VITE_SERVER_URL + "checkout";
 
   let tax = 0;
   let fname = "";
@@ -88,6 +90,26 @@
     } else {
       alert(" Go put in the right info you goof :P ");
     }
+  }
+
+  // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
+  const allItems = function (items) {
+    const sumItems = items.map((item) => {
+      console.log(items);
+      return {
+        id: item.Id,
+        price: item.FinalPrice,
+        name: item.Name,
+        quantity: item.qty || 1,
+      };
+    });
+    return sumItems;
+  };
+
+  function handleSubmit(e) {
+    // build the data object from the calculated fields, the items in the cart, and the information entered into the form
+    // remember that the form that was submitted can be found two ways...this or e.target
+    // call the checkout method in our externalServices module and send it our data object.
   }
 </script>
 
@@ -181,15 +203,29 @@
   <div class="order-summary">
     <h3>Order Summary</h3>
     {#each orderSummary.items as item}
-      <p class="order-item">
+      <div class="order-item">
+        <img
+          src={item.Images.PrimarySmall}
+          alt={item.NameWithoutBrand}
+          class="order-item-img"
+        />
         {item.NameWithoutBrand}
-        <span class="price">${item.FinalPrice.toFixed(2)}</span>
-      </p>
+        <div class="order-item-tags">
+          <span class="price">${item.FinalPrice.toFixed(2)}</span>
+          <span class="qty">x {item.qty || 1}</span>
+        </div>
+      </div>
     {/each}
     <div><strong>Total: ${orderSummary.total.toFixed(2) + tax}</strong></div>
   </div>
 
-  <button on:click={submitForm} disabled={!isFormValid}> Submit </button>
+  <button
+    on:click={submitForm}
+    on:submit|preventDefault={submitHandler}
+    disabled={!isFormValid}
+  >
+    Submit
+  </button>
 </div>
 
 <style>
@@ -232,11 +268,28 @@
     margin-left: auto;
     box-shadow: #aaa 2px 2px 4px;
   }
+  .qty {
+    padding: 5px;
+    /* border-radius: 20px; */
+    background-color: var(--dark-grey);
+    color: white;
+    font-size: x-small;
+    box-shadow: #aaa 2px 2px 4px;
+  }
+  .order-item-tags {
+    display: flex;
+    margin-left: auto;
+    gap: 5px;
+  }
+  .order-item-img {
+    width: 30px;
+  }
   .order-item {
     border-bottom: var(--light-grey) 1px solid;
     padding-bottom: 7px;
     display: flex;
     align-items: center;
     gap: 10px;
+    margin: 10px 0;
   }
 </style>
