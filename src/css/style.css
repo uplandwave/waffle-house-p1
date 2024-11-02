@@ -400,3 +400,24 @@ footer {
     transform: scale(0.7);
   }
 }
+
+/*  Quantity Feature: Container for quantity input */
+.product-detail__quantity {
+  margin-bottom: 1rem;
+}
+
+/*  Quantity Feature: Styling for quantity input */
+.quantity-input {
+  width: 80px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/*  Quantity Feature: Show number input spinners */
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  opacity: 1;
+  height: 30px;
+}
