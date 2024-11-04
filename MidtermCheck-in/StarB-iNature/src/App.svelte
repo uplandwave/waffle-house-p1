@@ -9,6 +9,9 @@
   let placeData = [];
   let placeIdentifications = [];
 
+  let startDate = "";
+  let endDate = "";
+
   async function getPlace(placeName) {
     const placeUrl = `https://api.inaturalist.org/v1/places/autocomplete?q=${encodeURIComponent(placeName)}`;
     const response = await fetch(placeUrl);
@@ -19,7 +22,11 @@
   }
 
   async function getIdentificationsByPlaceId(placeId) {
-    const placeIdUrl = `https://api.inaturalist.org/v1/identifications?q=${encodeURIComponent(placeId)}`;
+    const params = new URLSearchParams({ place_id: placeId});
+    if (startDate) params.append('d1', startDate);
+    if (endDate) params.append('d2', endDate);
+    
+    const placeIdUrl = `https://api.inaturalist.org/v1/identifications?${params}`;
     const response = await fetch(placeIdUrl);
     if (!response.ok) {
       throw new Error(`Error fetching place data: ${response.statusText}`);
@@ -50,15 +57,39 @@
       console.error("Error fetching identifications:", error);
     }
   }
+
+  // function to get unique observations based on taxon.name, used for checking which
+  // observations to display so duplicates will not be displayed
+  function uniqueNames(items) {
+    const uniqueNames = new Set();
+    return items.filter((item) => {
+      const taxonName = item.observation?.taxon?.name;
+      if (taxonName && !uniqueNames.has(taxonName)) {
+        uniqueNames.add(taxonName);
+        return true;
+      }
+      return false;
+    });
+  }
 </script>
 
 <main>
   <div>
+    <!-- user input of place, when search button is clicked api is queried to find places  -->
+    <label for="Select Place">Select Place</label>
     <input type="text" name="search" id="search" bind:value={placeName} />
     <button on:click={searchPlace}>Search</button>
-  </div>
 
-  <h1>Places</h1>
+  <h3>Specify Place & Dates(opt)</h3>
+    <!-- multiple places found, user has date buttons and can select the specific place -->
+    <div id="selectDate">
+      <label for="startDate">Start Date</label>
+      <input type="date" id="startDate" bind:value={startDate} />
+
+      <label for="endDate">Start Date</label>
+      <input type="date" id="endDate" bind:value={endDate} />
+    </div>
+  </div>
 
   <!-- Display fetched place data if available -->
   {#if placeData.length > 0}
@@ -73,27 +104,30 @@
     </ul>
   {/if}
 
-  <h1>Identifications</h1>
+  <h3>Identifications</h3>
   <section>
-  {#if placeIdentifications.length > 0}
-  {#each placeIdentifications as identification}
-  <div id="name-photo">
-    <h2>{identification.observation.taxon.name}</h2>
-    <img src={identification.observation.taxon.default_photo.medium_url} alt={identification.observation.species_guess}/>
-  </div>
-  {/each}
-  {/if}
-</section>
+    {#if placeIdentifications.length > 0}
+      {#each uniqueNames(placeIdentifications) as identification}
+        <div id="name-photo">
+          <h2>{identification.observation.taxon.name}</h2>
+          <img
+            src={identification.observation.taxon.default_photo.medium_url}
+            alt={identification.observation.species_guess}
+          />
+        </div>
+      {/each}
+    {/if}
+  </section>
 </main>
 
 <style>
   li {
     list-style-type: none;
   }
- img {
-  width: 200px;
-  height: 200px;
- }
+  img {
+    width: 200px;
+    height: 200px;
+  }
   section {
     display: flex;
     flex-wrap: wrap;
