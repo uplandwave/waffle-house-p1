@@ -34,13 +34,13 @@ export async function findProductById(id) {
   // return products.find((item) => item.Id === id);
 }
 
-export async function checkout(formPakage) {
+export async function checkout(json) {
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(formPakage)
+    body: JSON.stringify(json)
   }
   return await fetch(baseURL + "checkout/", options).then(convertToJson);
 }
