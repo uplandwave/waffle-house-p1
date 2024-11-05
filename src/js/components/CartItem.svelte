@@ -75,8 +75,5 @@
     opacity: 1;
     height: 30px;
   }
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> main
+

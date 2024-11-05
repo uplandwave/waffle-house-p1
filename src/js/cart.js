@@ -14,12 +14,8 @@ document.addEventListener("DOMContentLoaded", getCartCount);
 // function to remove or decrease quantity of an item in the cart
 function removeFromCart(itemId) {
   let cartItems = getLocalStorage("so-cart");
-// function to remove or decrease quantity of an item in the cart
-function removeFromCart(itemId) {
-  let cartItems = getLocalStorage("so-cart");
 
-  // find the index of the first item with the specified id
-  const index = cartItems.findIndex((item) => item.Id === itemId);
+
   // find the index of the first item with the specified id
   const index = cartItems.findIndex((item) => item.Id === itemId);
 
