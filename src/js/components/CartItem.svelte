@@ -28,7 +28,7 @@
 <!-- CartItem.svelte -->
 <li class="cart-card divider">
   <a href={itemURL} class="cart-card__image">
-    <img src={item.Images.PrimarySmall} alt="${item.Name}" />
+    <img src={item.Images.PrimarySmall} alt={item.Name} />
   </a>
   <a href={itemURL}>
     <h2 class="card__name">{item.Name}</h2>
