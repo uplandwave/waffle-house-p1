@@ -25,7 +25,7 @@
   let itemURL = `../product_pages/index.html?product=${item.Id}`;
 </script>
 
-// CartItem.svelte
+<!-- CartItem.svelte -->
 <li class="cart-card divider">
   <a href={itemURL} class="cart-card__image">
     <img src={item.Images.PrimarySmall} alt="${item.Name}" />
