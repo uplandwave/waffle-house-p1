@@ -15,21 +15,9 @@ document.addEventListener("DOMContentLoaded", getCartCount);
 function removeFromCart(itemId) {
   let cartItems = getLocalStorage("so-cart");
 
-
   // find the index of the first item with the specified id
   const index = cartItems.findIndex((item) => item.Id === itemId);
 
-  // if the item is found, decrease quantity or remove item
-  if (index !== -1) {
-    if (cartItems[index].quantity > 1) {
-      cartItems[index].quantity -= 1;
-    } else {
-      cartItems.splice(index, 1);
-    }
-  }
-
-  // update local storage
-  setLocalStorage("so-cart", cartItems);
   // if the item is found, decrease quantity or remove item
   if (index !== -1) {
     if (cartItems[index].quantity > 1) {
@@ -68,40 +56,7 @@ function increaseQuantity(itemId) {
 // function to render the contents of the cart
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-// function to increase quantity of an item in the cart
-function increaseQuantity(itemId) {
-  let cartItems = getLocalStorage("so-cart");
 
-  // find the index of the first item with the specified id
-  const index = cartItems.findIndex((item) => item.Id === itemId);
-
-  // if the item is found, increase quantity
-  if (index !== -1) {
-    cartItems[index].quantity += 1;
-  }
-
-  // update local storage
-  setLocalStorage("so-cart", cartItems);
-
-  // re-render the cart items
-  renderCartContents();
-}
-
-// function to render the contents of the cart
-function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-
-  // if the cart is empty there is nothing to render so exit the function
-  if (!cartItems || cartItems.length === 0) {
-    // display a message letting the user no there are no items in the cart
-    document.querySelector(".cart-empty-message").style.display = "block";
-    document.querySelector(".product-list").innerHTML = "";
-    // hide the "Total" element when the cart is empty
-    document.querySelector(".cart-footer").classList.add("hide");
-    // set the html for the cart-footer to empty
-    document.querySelector(".cart-footer").innerHTML = "";
-    return;
-  }
   // if the cart is empty there is nothing to render so exit the function
   if (!cartItems || cartItems.length === 0) {
     // display a message letting the user no there are no items in the cart
@@ -139,52 +94,7 @@ function renderCartContents() {
   // get the total amount for the items in the cart, display the total amount
   cartTotal();
 }
-  // iterate through the cart items adding them to the html template for displaying each item
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  // display the cart items for user to see
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  // attach event listener to the delete item button, for when a user removes an item from the cart
-  document.querySelectorAll("#delete-cart-item").forEach((button) => {
-    button.addEventListener("click", function () {
-      // get the id of the item the user clicked to delete from the cart
-      const itemId = this.getAttribute("data-id");
-      removeFromCart(itemId);
-      updateCartIcon();
-    });
-  });
-  // attach event listener to the increase quantity button
-  document.querySelectorAll("#increase-quantity").forEach((button) => {
-    button.addEventListener("click", function () {
-      // get the id of the item the user clicked to increase quantity
-      const itemId = this.getAttribute("data-id");
-      increaseQuantity(itemId);
-      updateCartIcon();
-    });
-  });
-  // get the total amount for the items in the cart, display the total amount
-  cartTotal();
-}
 
-// function to create inner html for a product
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: ${item.quantity}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-  <button id="delete-cart-item" data-id="${item.Id}">Decrease Quantity</button>
-  <button id="increase-quantity" data-id="${item.Id}">Increase Quantity</button>
-</li>`;
-  return newItem;
-}
 // function to create inner html for a product
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
