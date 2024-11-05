@@ -73,8 +73,7 @@ export function renderBreadcrumbs(crumbs){
 export function capitalize(stringValue) {
   return stringValue
     .split(" ")
-    .map((word) => {
-      return word
+    .map((word) => word
         .split("")
         .map((character, i) => {
           if (i === 0) {
@@ -82,7 +81,6 @@ export function capitalize(stringValue) {
           }
           return character
         })
-        .join('')
-    })
-    .join(' ')
+        .join(""))
+    .join(" ")
 }
