@@ -3,7 +3,7 @@ import NewsletterSignUp from "./components/NewsletterSignUp.svelte";
 import { renderHeaderFooter } from "./utils.mjs";
 import { isFirstVisit, setFirstVisit } from "./alerts.js";
 
-renderHeaderFooter();
+// renderHeaderFooter();
 
 function showBanner() {
   const banner = document.getElementById("banner");

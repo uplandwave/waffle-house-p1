@@ -1,6 +1,12 @@
 import MainHeader from "./components/MainHeader.svelte"
 import MainFooter from "./components/MainFooter.svelte"
 import Breadcrumbs from "./components/Breadcrumbs.svelte"
+import { cartCount } from "./stores.mjs"
+
+// Call this on each page load to update cart count in the header
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartIcon();
+});
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -33,12 +39,17 @@ export function getParam(param) {
   return paramValue
 }
 
-// New funtion to get the number of things in the cat | passes to stores.mjs
+// New funtion to get the number of things in the cart | passes to stores.mjs
 export function getCartCount() {
   const count = getLocalStorage("so-cart")?.length ?? 0;
   return count;
 }
-
+// Define updateCartIcon but don’t call renderHeaderFooter within it
+export function updateCartIcon() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const totalCount = cartItems.reduce((count, item) => count + (item.quantity || 1), 0);
+  cartCount.set(totalCount); // Updates the Svelte store, no direct DOM updates here
+}
 // this line is to clear the cart in local storage
 // function clearCart() {
 //   localStorage.removeItem("so-cart");
@@ -84,3 +95,20 @@ export function capitalize(stringValue) {
         .join(""))
     .join(" ")
 }
+
+// takes a form element and returns an object where the key is the "name" of the form input.
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement),
+    convertedJSON = {};
+
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderHeaderFooter(); // Call only once upon DOM load
+  updateCartIcon(); // Set initial cart count after header/footer loads
+});

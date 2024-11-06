@@ -3,14 +3,14 @@
 <script>
   import ProductSummary from "./ProductSummary.svelte";
   import { renderBreadcrumbs, capitalize } from "../utils.mjs";
-  import { getData } from "../productData.mjs";
+  import { getProductsByCategory } from "../externalServices.mjs";
 
   // this is how we make a prop in svelte
   export let category;
 
   // if you are looking at this thinking that's strange to just stop with a promise
   // you would be right.  This will make more sense in a bit...stay tuned.
-  let promise = getData(category);
+  let promise = getProductsByCategory(category);
 
   promise.then((data) => {
     renderBreadcrumbs([
@@ -30,17 +30,19 @@
   function formatCategory(category) {
     return category.toUpperCase().replace("-", " ");
   }
-</script>
 
-<!-- <p>Top products: {category}</p> -->
+
+</script>
 
 <h2>{formatCategory(category)}</h2>
 {#await promise}
-  Loading
+  Loading...
 {:then products}
   <ul class="product-list">
     {#each products as product}
-      <li class="product-card"><ProductSummary {product} /></li>
+      <li class="product-item">
+        <ProductSummary {product} />
+      </li>
     {/each}
   </ul>
 {/await}

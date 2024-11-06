@@ -1,5 +1,13 @@
 <script>
-  export let product = {};
+    import { createEventDispatcher } from 'svelte';
+    import QuickViewModal from './QuickViewModal.svelte';
+
+export let product = {};
+let showModal = false;
+// Create the dispatcher for emitting custom events
+const dispatch = createEventDispatcher();
+
+
   function getDiscountAmount(suggestedRetailPrice, finalPrice) {
     return Math.round((1 - finalPrice / suggestedRetailPrice) * 100);
   }
@@ -10,36 +18,47 @@
   //   }
   //   return name;
   // }
+  function openQuickView() {
+    showModal = true;
+    dispatch("quickView", { detail: product });
+  }
+
+  function closeQuickView() {
+    showModal = false;
+  }
 </script>
 
-<a href="../product_pages/index.html?product={product.Id}">
-  <div class="productImage">
-    <img src={product.Images.PrimaryMedium} alt={product.Brand.Name} />
-  </div>
-  <div class="productShortText">
-    <h3 class="card_brand">{product.Brand.Name}</h3>
-    <h2 class="card_name">{product.NameWithoutBrand}</h2>
-    <!-- <h2 class="card_name">{truncateName(product.NameWithoutBrand, 25)}</h2>  -->
-    <div class="priceDiv">
-      <p class="product-card_price">
-        {#if product.FinalPrice !== product.SuggestedRetailPrice}
-          <span class="discount-container">
-            <span class="discount-prev-price">${product.SuggestedRetailPrice}</span>
-            ${product.FinalPrice}
-            <span class="discount-amount-subtracted">
-              ~ %{getDiscountAmount(
-                product.SuggestedRetailPrice,
-                product.FinalPrice,
-              )} off
-            </span>
-          </span>
-        {:else}
-          ${product.FinalPrice}
-        {/if}
-      </p>
+<div class="product-card">
+  <a href="../product_pages/index.html?product={product.Id}">
+    <div class="productImage">
+      <img src={product.Images.PrimaryMedium} alt={product.Brand.Name} />
     </div>
-  </div>
-</a>
+    <div class="productShortText">
+      <h3 class="card_brand">{product.Brand.Name}</h3>
+      <h2 class="card_name">{product.NameWithoutBrand}</h2>
+      <div class="priceDiv">
+        <p class="product-card_price">
+          {#if product.FinalPrice !== product.SuggestedRetailPrice}
+            <span class="discount-container">
+              <span class="discount-prev-price">${product.SuggestedRetailPrice}</span>
+              ${product.FinalPrice}
+            </span>
+          {:else}
+            ${product.FinalPrice}
+          {/if}
+        </p>
+      </div>
+    </div>
+  </a>
+  <button id="quick-view" on:click={openQuickView}>Quick View</button>
+
+  <!-- Render QuickViewModal within each ProductSummary component -->
+  {#if showModal}
+    <QuickViewModal selectedProduct={product} on:close={closeQuickView} />
+  {/if}
+</div>
+
+
 
 <style>
   .productImage {
@@ -49,22 +68,22 @@
     padding-bottom: 10px;
     padding-top: 25px;
   }
-  .productShortText {
-    /* display: block; */
+
+  #quick-view {
+    opacity: 0.7;
+    color: white;
+    background-color: black;
   }
   .priceDiv{
     display: flex;
     justify-content: center;
-    /* text-align: center; */
   }
     .card_name {
       display: -webkit-box; 
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical; 
       overflow: hidden;
       text-overflow: ellipsis;
       max-height: 3em;
       line-height: 1.5em;
-      /* white-space: nowrap; */
     }
 </style>
