@@ -1,8 +1,8 @@
-import { renderHeaderFooter } from "./utils.mjs";
+// import { renderHeaderFooter } from "./utils.mjs";
 import CheckoutForm from "./components/CheckoutForm.svelte"
 
 
-renderHeaderFooter();
+// renderHeaderFooter();
 
 new CheckoutForm({
     target: document.querySelector("#checkout-form"),

@@ -261,7 +261,11 @@
           </div>
         </div>
       {/each}
-      <div><strong>Total: ${orderSummary.total.toFixed(2) + tax}</strong></div>
+        <!-- Display the computed totals -->
+  <div><strong>Subtotal: ${orderSummary.total.toFixed(2)}</strong></div>
+  <div><strong>Tax: ${tax.toFixed(2)}</strong></div>
+  <div><strong>Shipping: ${shipping.toFixed(2)}</strong></div>
+  <div><strong>Total: ${orderTotal.toFixed(2)}</strong></div>
     </div>
 
     <button id="checkoutSubmit" type="submit">Submit</button>

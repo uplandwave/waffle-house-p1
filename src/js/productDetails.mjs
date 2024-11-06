@@ -6,7 +6,7 @@ import {
   renderBreadcrumbs,
   capitalize,
 } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
+import { findProductById } from "./externalServices.mjs";
 import { cartCount } from "./stores.mjs";
 
 let productData = {};
