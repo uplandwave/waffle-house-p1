@@ -30,17 +30,19 @@
   function formatCategory(category) {
     return category.toUpperCase().replace("-", " ");
   }
-</script>
 
-<!-- <p>Top products: {category}</p> -->
+
+</script>
 
 <h2>{formatCategory(category)}</h2>
 {#await promise}
-  Loading
+  Loading...
 {:then products}
   <ul class="product-list">
     {#each products as product}
-      <li class="product-card"><ProductSummary {product} /></li>
+      <li class="product-item">
+        <ProductSummary {product} />
+      </li>
     {/each}
   </ul>
 {/await}
