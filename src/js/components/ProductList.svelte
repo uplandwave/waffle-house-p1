@@ -30,8 +30,6 @@
   function formatCategory(category) {
     return category.toUpperCase().replace("-", " ");
   }
-
-
 </script>
 
 <h2>{formatCategory(category)}</h2>

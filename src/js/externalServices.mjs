@@ -1,11 +1,13 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 // const baseURL = import.meta.env.VITE_SERVER_URL + "checkout";
 
-function convertToJson(res) {
+async function convertToJson(res) {
+  const errData = await res.json()
   if (res.ok) {
-    return res.json();
+    return errData;
   } else {
-    throw new Error("Bad Response");
+    // throw new Error("Bad Response");
+    throw { name: 'servicesError', message: errData };
   }
 }
 

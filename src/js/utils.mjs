@@ -1,6 +1,7 @@
 import MainHeader from "./components/MainHeader.svelte"
 import MainFooter from "./components/MainFooter.svelte"
 import Breadcrumbs from "./components/Breadcrumbs.svelte"
+import MessagedAlert from "./components/MessagedAlert.svelte"
 import { cartCount } from "./stores.mjs"
 
 // Call this on each page load to update cart count in the header
@@ -106,6 +107,21 @@ export function formDataToJSON(formElement) {
   });
 
   return convertedJSON;
+}
+
+export function alertMessage(message, scroll=true) {
+  // insert the MessagedAlert before <main>
+  new MessagedAlert({
+    target: document.querySelector("body"),
+    // https://svelte.dev/docs/svelte/legacy-component-api#Creating-a-component
+    anchor: document.querySelector("main"),
+    props: {message}
+  })
+  // scroll to top if needed
+  if (scroll) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo
+    window.scrollTo(0,0)
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
