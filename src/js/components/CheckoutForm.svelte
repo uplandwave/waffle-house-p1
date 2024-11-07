@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { getLocalStorage, formDataToJSON } from "../utils.mjs";
+  import { getLocalStorage, formDataToJSON, alertMessage } from "../utils.mjs";
   import { checkout } from "../externalServices.mjs";
 
   const baseURL = import.meta.env.VITE_SERVER_URL + "checkout";
@@ -16,9 +16,10 @@
   let city = "";
   let state = "";
   let zip = "";
-  let cardNumber = "";
-  let expiration = "";
-  let code = "";
+  // let cardNumber = "1234123412341234";
+  let cardNumber = "12343232123434543";
+  let expiration = "12/25";
+  let code = "123";
   let isFormValid = false;
   const dispatch = createEventDispatcher();
 
@@ -27,7 +28,7 @@
   // link our total if we want
   let orderSummary = {
     total: cartList.reduce((total, item) => {
-      return (total += item.FinalPrice * (item.qty || 1));
+      return (total += item.FinalPrice * (item.quantity || 1));
     }, 0),
     itemsTotal: cartList.length,
     items: cartList,
@@ -95,18 +96,18 @@
   $: validateForm();
 
   // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
-  const allItems = function (items) {
-    const sumItems = items.map((item) => {
-      console.log(items);
-      return {
-        id: item.Id,
-        price: item.FinalPrice,
-        name: item.Name,
-        quantity: item.qty || 1,
-      };
-    });
-    return sumItems;
-  };
+  // const allItems = function (items) {
+  //   const sumItems = items.map((item) => {
+  //     console.log(items);
+  //     return {
+  //       id: item.Id,
+  //       price: item.FinalPrice,
+  //       name: item.Name,
+  //       quantity: item.quantity || 1, //this might need to be changed to item.qut
+  //     };
+  //   });
+  //   return sumItems;
+  // };
 
   // transform the current cart contents to a simpler format keeping just the things we need to send to checkout
   const packageItems = function (items) {
@@ -127,8 +128,8 @@
     validateForm();
 
     if (!isFormValid) {
-      alert("Please fill out all required fields.");
-      return;
+    alert("Please fill out all required fields.");
+    return;
     }
 
     const json = {
@@ -153,8 +154,13 @@
     try {
       const response = await checkout(json);
       console.log("Order submitted successfully:", response);
+      location.assign("/checkout/success.html");
     } catch (error) {
       console.error("Order submission failed:", error);
+      for (let message in error.message) {
+        alertMessage(error.message[message]);
+      }
+      console.log(error);
     }
   }
 </script>
@@ -223,8 +229,9 @@
         type="text"
         bind:value={cardNumber}
         placeholder="1234 5678 9012 3456"
-        maxlength="16"
-        minlength="16"
+        maxlength="19"
+        minlength="19"
+        on:input={formatCardNumber}
       />
 
       <label for="expiration">Expiration Date</label>
@@ -233,6 +240,7 @@
         type="text"
         bind:value={expiration}
         placeholder="MM/YY"
+        on:input={formatExpirationDate}
       />
 
       <label for="code">Security Code</label>
@@ -257,15 +265,15 @@
           {item.NameWithoutBrand}
           <div class="order-item-tags">
             <span class="price">${item.FinalPrice.toFixed(2)}</span>
-            <span class="qty">x {item.qty || 1}</span>
+            <span class="qty">x {item.quantity || 1}</span>
           </div>
         </div>
       {/each}
-        <!-- Display the computed totals -->
-  <div><strong>Subtotal: ${orderSummary.total.toFixed(2)}</strong></div>
-  <div><strong>Tax: ${tax.toFixed(2)}</strong></div>
-  <div><strong>Shipping: ${shipping.toFixed(2)}</strong></div>
-  <div><strong>Total: ${orderTotal.toFixed(2)}</strong></div>
+      <!-- Display the computed totals -->
+      <div><strong>Subtotal: ${orderSummary.total.toFixed(2)}</strong></div>
+      <div><strong>Tax: ${tax.toFixed(2)}</strong></div>
+      <div><strong>Shipping: ${shipping.toFixed(2)}</strong></div>
+      <div><strong>Total: ${orderTotal.toFixed(2)}</strong></div>
     </div>
 
     <button id="checkoutSubmit" type="submit">Submit</button>
