@@ -12,12 +12,6 @@ const dispatch = createEventDispatcher();
     return Math.round((1 - finalPrice / suggestedRetailPrice) * 100);
   }
 
-  // function truncateName(name, maxLength) {
-  //   if (name.length > maxLength) {
-  //     return name.slice(0, maxLength) + '...';
-  //   }
-  //   return name;
-  // }
   function openQuickView() {
     showModal = true;
     dispatch("quickView", { detail: product });
@@ -59,7 +53,6 @@ const dispatch = createEventDispatcher();
 </div>
 
 
-
 <style>
   .productImage {
     display: flex;
@@ -68,7 +61,6 @@ const dispatch = createEventDispatcher();
     padding-bottom: 10px;
     padding-top: 25px;
   }
-
   #quick-view {
     opacity: 0.7;
     color: white;

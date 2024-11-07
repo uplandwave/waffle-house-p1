@@ -1,6 +1,5 @@
 <script>
   import { cartCount } from "../stores.mjs";
-
 </script>
 
       <div class="logo">

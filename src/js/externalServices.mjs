@@ -22,14 +22,12 @@ async function convertToJson(res) {
 export async function getProductsByCategory(category) {
   const response = await fetch(baseURL + `products/search/${category}`);
   const data = await convertToJson(response);
-  console.log("DATA RESULT", data.Result); // for star for quick look trello card
   return data.Result;
 }
 
 export async function findProductById(id) {
   const response = await fetch(baseURL + `product/${id}`);
   const data = await convertToJson(response);
-  // console.log("DATA RESULT", data.Result)
   return data.Result;
 
   // const products = await getData();

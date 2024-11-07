@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { getLocalStorage, formDataToJSON, alertMessage } from "../utils.mjs";
+  import { getLocalStorage, alertMessage, getCartTotal } from "../utils.mjs";
   import { checkout } from "../externalServices.mjs";
 
   const baseURL = import.meta.env.VITE_SERVER_URL + "checkout";
@@ -17,7 +17,7 @@
   let state = "";
   let zip = "";
   // let cardNumber = "1234123412341234";
-  let cardNumber = "12343232123434543";
+  let cardNumber = "12343232123434543"; //this value throws and error
   let expiration = "12/25";
   let code = "123";
   let isFormValid = false;
@@ -27,9 +27,7 @@
 
   // link our total if we want
   let orderSummary = {
-    total: cartList.reduce((total, item) => {
-      return (total += item.FinalPrice * (item.quantity || 1));
-    }, 0),
+    total: getCartTotal(),
     itemsTotal: cartList.length,
     items: cartList,
   };
@@ -95,20 +93,6 @@
   // Reactive validation
   $: validateForm();
 
-  // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
-  // const allItems = function (items) {
-  //   const sumItems = items.map((item) => {
-  //     console.log(items);
-  //     return {
-  //       id: item.Id,
-  //       price: item.FinalPrice,
-  //       name: item.Name,
-  //       quantity: item.quantity || 1, //this might need to be changed to item.qut
-  //     };
-  //   });
-  //   return sumItems;
-  // };
-
   // transform the current cart contents to a simpler format keeping just the things we need to send to checkout
   const packageItems = function (items) {
     const simplifiedItems = items.map((item) => {
@@ -117,7 +101,7 @@
         id: item.Id,
         price: item.FinalPrice,
         name: item.Name,
-        quantity: 1,
+        quantity: item.quantity || 1,
       };
     });
     return simplifiedItems;
@@ -128,8 +112,8 @@
     validateForm();
 
     if (!isFormValid) {
-    alert("Please fill out all required fields.");
-    return;
+      alert("Please fill out all required fields.");
+      return;
     }
 
     const json = {
@@ -160,7 +144,6 @@
       for (let message in error.message) {
         alertMessage(error.message[message]);
       }
-      console.log(error);
     }
   }
 </script>
@@ -270,13 +253,15 @@
         </div>
       {/each}
       <!-- Display the computed totals -->
-      <div><strong>Subtotal: ${orderSummary.total.toFixed(2)}</strong></div>
-      <div><strong>Tax: ${tax.toFixed(2)}</strong></div>
-      <div><strong>Shipping: ${shipping.toFixed(2)}</strong></div>
-      <div><strong>Total: ${orderTotal.toFixed(2)}</strong></div>
-    </div>
+      <div class="orderNumbers">
+        <div><strong>Subtotal: ${orderSummary.total.toFixed(2)}</strong></div>
+        <div><strong>Tax: ${tax.toFixed(2)}</strong></div>
+        <div><strong>Shipping: ${shipping.toFixed(2)}</strong></div>
+        <div><strong>Total: ${orderTotal.toFixed(2)}</strong></div>
+      </div>
 
-    <button id="checkoutSubmit" type="submit">Submit</button>
+      <button id="checkoutSubmit" type="submit">Submit</button>
+    </div>
   </div>
 </form>
 
@@ -310,6 +295,10 @@
     margin-top: 20px;
     padding: 10px;
     border-top: 1px solid #ddd;
+  }
+  .orderNumbers {
+    padding-top: 10px;
+    padding-bottom: 20px;
   }
   .price {
     padding: 5px;

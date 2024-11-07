@@ -1,5 +1,3 @@
-<!-- <p>My new product list componenent!</p> -->
-
 <script>
   import ProductSummary from "./ProductSummary.svelte";
   import { renderBreadcrumbs, capitalize } from "../utils.mjs";

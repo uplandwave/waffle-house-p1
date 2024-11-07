@@ -40,7 +40,7 @@ export function getParam(param) {
   return paramValue
 }
 
-// New funtion to get the number of things in the cart | passes to stores.mjs
+// New function to get the number of things in the cart | passes to stores.mjs
 export function getCartCount() {
   const count = getLocalStorage("so-cart")?.length ?? 0;
   return count;
@@ -122,6 +122,14 @@ export function alertMessage(message, scroll=true) {
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo
     window.scrollTo(0,0)
   }
+}
+
+export function getCartTotal() {
+  const cartItems = getLocalStorage("so-cart");
+  return cartItems.reduce(
+      (sum, item) => sum + item.FinalPrice * item.quantity,
+      0,
+    );
 }
 
 document.addEventListener("DOMContentLoaded", () => {
