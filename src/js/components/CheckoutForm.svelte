@@ -16,8 +16,9 @@
   let city = "";
   let state = "";
   let zip = "";
-  // let cardNumber = "1234123412341234";
-  let cardNumber = "12343232123434543"; //this value throws and error
+  let cardNumber = "1234123412341234";
+  //this value throws and error
+  // let cardNumber = "12343232123434543";
   let expiration = "12/25";
   let code = "123";
   let isFormValid = false;
