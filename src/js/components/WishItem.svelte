@@ -1,15 +1,12 @@
+<!-- Base code copied and pasted from ./CartItem.svelte -->
 <script>
   export let item = {};
-  export let moveTo = "";
   import { createEventDispatcher } from "svelte";
 
   const emit = createEventDispatcher();
 
   function emitDelete() {
     emit("itemDeleted", { Id: item.Id });
-  }
-  function emitMove() {
-    emit("itemMoved", { Id: item.Id, quantity: item.quantity });
   }
 
   // Updated quantity change handler to handle all quantity changes
@@ -52,24 +49,12 @@
   </div>
 
   <p class="cart-card__price">${item.FinalPrice}</p>
-  <div class="buttons-flex">
-    <button class="cart-item-button" data-id={item.Id} on:click={emitDelete}>
-      Delete Item
-    </button>
-    <button class="cart-item-button" data-id={item.Id} on:click={emitMove}>
-      Move To {moveTo}
-    </button>
-  </div>
+  <button id="delete-cart-item" data-id={item.Id} on:click={emitDelete}>
+    Delete Item
+  </button>
 </li>
 
 <style>
-  .buttons-flex {
-    grid-column-start: 1;
-    grid-column-end: -1;
-    display: flex;
-    margin: 0 auto;
-  }
-
   /*  Quantity Feature: Styling for quantity input */
   .cart-card__quantity {
     display: flex;

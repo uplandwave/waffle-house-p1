@@ -91,7 +91,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -135,9 +135,11 @@ button {
   0% {
     transform: scale(0);
   }
+
   50% {
     transform: scale(1.2);
   }
+
   100% {
     transform: scale(1);
   }
@@ -151,13 +153,12 @@ button {
   animation: shake 0.5s;
 }
 
-#delete-cart-item {
+.cart-item-button {
   border-radius: 50px;
   padding: 5px 15px 5px 15px;
   margin: 10px;
   font-size: 15px;
-  grid-column: 1 / span 3; /* Span across all three columns */
-  justify-self: center; /* Horizontally center the button */
+  justify-self: center;
 }
 
 /* Mission section */
@@ -172,6 +173,7 @@ button {
 .categories-title {
   padding-left: 25px;
 }
+
 .categories-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -180,11 +182,13 @@ button {
   padding: 0 50px;
   gap: 10px;
 }
+
 .categories-grid a {
   transform: scale(0.9);
   transition: all 0.3s ease;
   /* padding: 10px; */
 }
+
 .categories-grid a:hover {
   transform: scale(0.1);
   /* border: 2px solid #666; */
@@ -292,10 +296,12 @@ footer {
   align-items: center;
   gap: 5px;
 }
+
 .discount-prev-price {
   text-decoration: line-through;
   color: #666;
 }
+
 .discount-amount-subtracted {
   background-color: var(--secondary-color);
   font-size: x-small;
@@ -393,9 +399,11 @@ footer {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
   }
+
   .categories-grid a {
     transform: scale(0.55);
   }
+
   .categories-grid a:hover {
     transform: scale(0.7);
   }
