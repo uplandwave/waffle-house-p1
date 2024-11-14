@@ -2,12 +2,13 @@ import MainHeader from "./components/MainHeader.svelte"
 import MainFooter from "./components/MainFooter.svelte"
 import Breadcrumbs from "./components/Breadcrumbs.svelte"
 import MessagedAlert from "./components/MessagedAlert.svelte"
+import SearchProducts from "./components/SearchProducts.svelte"
 import { cartCount } from "./stores.mjs"
 
-// Call this on each page load to update cart count in the header
-document.addEventListener("DOMContentLoaded", () => {
-  updateCartIcon();
-});
+// // Call this on each page load to update cart count in the header
+// document.addEventListener("DOMContentLoaded", () => {
+//   updateCartIcon();
+// });
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -132,7 +133,15 @@ export function getCartTotal() {
     );
 }
 
+export function searchProducts() {
+  new SearchProducts ({
+    target: document.querySelector("#header")
+  })
+
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderHeaderFooter(); // Call only once upon DOM load
   updateCartIcon(); // Set initial cart count after header/footer loads
-});
+  searchProducts();
+});  

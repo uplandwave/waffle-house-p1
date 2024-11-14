@@ -1,12 +1,11 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-    import QuickViewModal from './QuickViewModal.svelte';
+  import { createEventDispatcher } from "svelte";
+  import QuickViewModal from "./QuickViewModal.svelte";
 
-export let product = {};
-let showModal = false;
-// Create the dispatcher for emitting custom events
-const dispatch = createEventDispatcher();
-
+  export let product = {};
+  let showModal = false;
+  // Create the dispatcher for emitting custom events
+  const dispatch = createEventDispatcher();
 
   function getDiscountAmount(suggestedRetailPrice, finalPrice) {
     return Math.round((1 - finalPrice / suggestedRetailPrice) * 100);
@@ -34,7 +33,9 @@ const dispatch = createEventDispatcher();
         <p class="product-card_price">
           {#if product.FinalPrice !== product.SuggestedRetailPrice}
             <span class="discount-container">
-              <span class="discount-prev-price">${product.SuggestedRetailPrice}</span>
+              <span class="discount-prev-price"
+                >${product.SuggestedRetailPrice}</span
+              >
               ${product.FinalPrice}
             </span>
           {:else}
@@ -52,7 +53,6 @@ const dispatch = createEventDispatcher();
   {/if}
 </div>
 
-
 <style>
   .productImage {
     display: flex;
@@ -66,16 +66,16 @@ const dispatch = createEventDispatcher();
     color: white;
     background-color: black;
   }
-  .priceDiv{
+  .priceDiv {
     display: flex;
     justify-content: center;
   }
-    .card_name {
-      display: -webkit-box; 
-      -webkit-box-orient: vertical; 
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-height: 3em;
-      line-height: 1.5em;
-    }
+  .card_name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3em;
+    line-height: 1.5em;
+  }
 </style>
