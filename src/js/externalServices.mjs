@@ -44,3 +44,25 @@ export async function checkout(json) {
   }
   return await fetch(baseURL + "checkout/", options).then(convertToJson);
 }
+
+ export async function loginRequest(creds) {
+  const response = await fetch('http://server-nodejs.cit.byui.edu:3000/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(creds),
+  });
+  return response;
+}
+
+export async function getOrders(token) {
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await fetch(baseURL + "orders", options).then(convertToJson);
+  return response;
+}
