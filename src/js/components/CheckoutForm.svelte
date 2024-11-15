@@ -56,7 +56,7 @@
       input.length > 2 ? `${input.slice(0, 2)}/${input.slice(2)}` : input;
   }
 
-  function validateForm() {
+  function  validateForm() {
     // Basic checks for each field
     const isCardNumberValid = true;
     const isExpirationValid = true;
